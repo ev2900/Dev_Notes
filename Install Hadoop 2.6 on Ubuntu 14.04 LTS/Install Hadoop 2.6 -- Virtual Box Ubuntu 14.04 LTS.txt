@@ -1,0 +1,175 @@
+Install Hadoop 2.6 -- Virtual Box Ubuntu 14.04 LTS  -- Single Node Pseudo Mode
+--
+
+On Virtual Box Ubunutu LTS 14.04
+
+	1. Install Java
+	2. Disable IPv6
+	3. Add a dedicated Hadoop User
+	4. Install SSH
+	5. Give hduser Sudo Permission
+	6. Set up SSH Certifiactes
+	7. Install Hadoop
+	8. Configure Hadoop
+		a. bash.rc
+		b. hadoop-env.sh
+		c. core-site.xml
+		d. mapred-site.xml.template
+		e. hdfs-site.xml
+	9. Format Hadoop filesystem
+	10. Start Hadoop 
+	11. Testing that is running
+	12. Stopping Hadoop
+
+--------------------------------------------------------------------------------------------
+
+1. Install Java
+
+	sudo apt-get update
+	sudo apt-get install default-jdk
+	java -version
+
+2. Disable IPv6
+
+	sudo apt-get install vim
+
+	sudo vim /etc/sysctl.conf
+
+	# disable ipv6
+	net.ipv6.conf.all.disable_ipv6 = 1
+	net.ipv6.conf.default.disable_ipv6 = 1
+	net.ipv6.conf.lo.disable_ipv6 = 1
+
+	cat /proc/sys/net/ipv6/conf/all/disable_ipv6 ... (should return zero)
+
+3. Adding a dedicated Hadoop User
+
+	sudo addgroup hadoop
+	sudo adduser --ingroup hadoop hduser
+
+4. Install SSH
+
+	sudo apt-get install ssh
+
+5. Give hduser Sudo Permission
+
+	sudo adduser hduser sudo
+
+6. Setup SSH Certificates
+
+	su hduser
+	ssh-keygen -t rsa -P ""
+	cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
+
+	ssh localhost
+
+7. Install Hadoop
+
+	su hduser
+	wget http://mirrors.sonic.net/apache/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz
+	tar xvzf hadoop-2.6.0.tar.gz
+	cd hadoop-2.6.0
+	sudo mkdir /usr/local/hadoop
+	sudo mv * /usr/local/hadoop
+
+8. Set up the Configuration files
+
+	a. vim ~/.bashrc
+
+		#HADOOP VARIABLES START
+		export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+		export HADOOP_INSTALL=/usr/local/hadoop
+		export PATH=$PATH:$HADOOP_INSTALL/bin
+		export PATH=$PATH:$HADOOP_INSTALL/sbin
+		export HADOOP_MAPRED_HOME=$HADOOP_INSTALL
+		export HADOOP_COMMON_HOME=$HADOOP_INSTALL
+		export HADOOP_HDFS_HOME=$HADOOP_INSTALL
+		export YARN_HOME=$HADOOP_INSTALL
+		export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_INSTALL/lib/native
+		export HADOOP_OPTS="-Djava.library.path=$HADOOP_INSTALL/lib"
+		#HADOOP VARIABLES END
+
+	b.  vim /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+
+		export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+
+	c.  sudo mkdir -p /app/hadoop/tmp
+	    sudo chown hduser:hadoop /app/hadoop/tmp
+	    vim /usr/local/hadoop/etc/hadoop/core-site.xml
+
+		<property>
+  			<name>hadoop.tmp.dir</name>
+        		<value>/app/hadoop/tmp</value>
+            		<description>A base for other temporary directories.</description>
+           	</property>
+
+ 		<property>
+  			<name>fs.default.name</name>
+  			<value>hdfs://localhost:54310</value>
+  			<description>The name of the default file system.  A URI whose
+  			scheme and authority determine the FileSystem implementation.  The
+  			uri's scheme determines the config property (fs.SCHEME.impl) naming
+  			the FileSystem implementation class.  The uri's authority is used to
+  			determine the host, port, etc. for a filesystem.</description>
+ 		</property>
+
+	d. cp /usr/local/hadoop/etc/hadoop/mapred-site.xml.template /usr/local/hadoop/etc/hadoop/mapred-site.xml
+	   vim /usr/local/hadoop/etc/hadoop/mapred-site.xml
+
+	   	 <property>
+  			<name>mapred.job.tracker</name>
+  			<value>localhost:54311</value>
+  			<description>The host and port that the MapReduce job tracker runs
+  			at.  If "local", then jobs are run in-process as a single map
+  			and reduce task.
+  			</description>
+ 		</property>
+
+	e. sudo mkdir -p /usr/local/hadoop_store/hdfs/namenode
+	   sudo mkdir -p /usr/local/hadoop_store/hdfs/datanode
+	   sudo chown -R hduser:hadoop /usr/local/hadoop_store
+	   vim /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+
+	   	<property>
+  			<name>dfs.replication</name>
+  			<value>1</value>
+  			<description>Default block replication.
+  			The actual number of replications can be specified when the file is created.
+  			The default is used if replication is not specified in create time.
+  			</description>
+ 		</property>
+ 
+ 		<property>
+   			<name>dfs.namenode.name.dir</name>
+   			<value>file:/usr/local/hadoop_store/hdfs/namenode</value>
+ 		</property>
+ 
+ 		<property>
+   			<name>dfs.datanode.data.dir</name>
+   			<value>file:/usr/local/hadoop_store/hdfs/datanode</value>
+ 		</property>
+
+9. Format Hadoop filesystem
+
+	hadoop namenode -format
+
+10. Starting Hadoop
+
+	su hduser
+
+	sudo chown -R hduser:hadoop /usr/local/hadoop/
+	
+	cd /usr/local/hadoop/sbin
+	start-all.sh
+
+11. Testing if it is working 
+	
+	jps
+
+	netstat -plten | grep java
+
+	http://localhost:50070/
+
+12. Stopping Hadoop
+
+	stop-all.sh
