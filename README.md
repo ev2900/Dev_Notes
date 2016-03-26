@@ -1,3 +1,3 @@
-# Hadoop-Singe-Node-YouTube
+Notes
 --
-Documentation for the instructional youtube vedio series on hadooop. Which can be found here https://goo.gl/CMIBzm 
+A repo with some notes on install and completing the initial configuration of different software stacks.    
