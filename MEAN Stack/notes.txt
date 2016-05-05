@@ -1,0 +1,60 @@
+---- Server After You Leave Terminal ----
+
+	--- Start ---
+	nohup node server.js &
+
+	--- Stop ---
+	ps -A | grep node
+	pkill node
+
+---- Super User ----
+sudo su - give you super user privlages
+
+---- Update & Upgrade ----
+yum update
+yum upgrade
+
+---- Install Node ---
+sudo yum install gcc-c++ make
+sudo yum install openssl-devel
+wget 
+tar -xvf 
+./configure && make && sudo make install
+
+---- Install Git ----
+sudo yum install git
+
+---- Mongo ----
+
+	--- Install ---
+	touch /etc/yum.repos.d/mongodb-org-3.2.repo
+	vim /etc/yum.repos.d/mongodb-org-3.2.repo
+
+		[mongodb-org-3.2]
+		name=MongoDB Repository
+		baseurl=https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.2/x86_64/
+		gpgcheck=1
+		enabled=1
+		gpgkey=https://www.mongodb.org/static/pgp/server-3.2.asc
+
+	sudo yum install -y mongodb-org
+
+	--- Start ---
+	sudo service mongod start
+
+	--- Stop ---
+	sudo service mongod stop
+
+	--- Restart ---
+	sudo service mongod restart
+
+	--- Comands ---
+	show dbs
+	use mydb
+	show collection
+	db.users.find()
+
+---- AWS Security Group ----
+SSH 
+HTTP
+TCP 8080
