@@ -51,7 +51,7 @@ sudo yum install git
 	--- Comands ---
 	show dbs
 	use mydb
-	show collection
+	show collections
 	db.users.find()
 
 ---- AWS Security Group ----
