@@ -52,7 +52,7 @@ sudo yum install git
 	show dbs
 	use mydb
 	show collections
-	db.users.find()
+	db.users.find().pretty()
 
 ---- AWS Security Group ----
 SSH 
