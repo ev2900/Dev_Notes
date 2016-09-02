@@ -1,4 +1,4 @@
----- Server After You Leave Terminal ----
+--- Server After You Leave Terminal ---
 
 	--- Start ---
 	nohup node server.js &
@@ -7,24 +7,24 @@
 	ps -A | grep node
 	pkill node
 
----- Super User ----
+--- Super User ---
 sudo su - give you super user privlages
 
----- Update & Upgrade ----
+--- Update & Upgrade ---
 yum update
 yum upgrade
 
----- Install Node ---
+--- Install Node ---
 sudo yum install gcc-c++ make
 sudo yum install openssl-devel
 wget 
 tar -xvf 
 ./configure && make && sudo make install
 
----- Install Git ----
+--- Install Git ---
 sudo yum install git
 
----- Mongo ----
+--- Mongo ---
 
 	--- Install ---
 	touch /etc/yum.repos.d/mongodb-org-3.2.repo
@@ -54,14 +54,25 @@ sudo yum install git
 	show collections
 	db.users.find().pretty()
 
----- AWS Security Group ----
+--- AWS Security Group ---
 SSH 
 HTTP
 TCP 8080
 
----- Amazon AMI Linux (links to fix sudo issues) ----
+--- Amazon AMI Linux (links to fix sudo issues) ---
 sudo ln -s /usr/local/bin/node /usr/bin/node
 sudo ln -s /usr/local/lib/node /usr/lib/node
 sudo ln -s /usr/local/bin/npm /usr/bin/npm
 sudo ln -s /usr/local/bin/node-waf /usr/bin/node-waf
 
+--- IP Tables ---
+sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
+sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+--- Forever ---
+forever start server.js
+forever start
+forever stop
+forever stopall
+forever restart
+forever restaretall
