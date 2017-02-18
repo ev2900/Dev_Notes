@@ -1,0 +1,75 @@
+Regex Notes
+
+re.match 	- must be at the begining
+re.search 	- can be anywhere (will retrun multiple matches ... on one line)
+re.findall 	- will find all where they do not over lap
+
+\w 	- any unicode character
+\W 	- anything that isn't a unicode character
+
+\s 	- any whitespace
+\S  - anything that isn't whitespace
+
+\d 	- any number from 0 to 9
+\D 	- anything that isn't a number
+
+\b 	- word boundaries or edges of a word
+\B 	- anything that isn't the edge of a word
+
+? 	- something that occurs 0 or 1 times (makes something optional)
+* 	- something that occurs at least 0 times
++ 	- something that occurs at least once
+^ 	- do not match this (usefull to exclude a set ...)
+
+Sets
+	r'[-\w\d+.]+@[-\w\d.]+' 		(match an email)
+	r'?\d{3}\)?-?\s?\d{3}-\d{4})'	(match phone numbers)
+
+Flags
+	re.I	(ignore  case)
+	re.X	(VERBOSE of multiline regex's)
+	re.M 	(treat each line as a seperate string)
+
+Multi line 
+	r'''
+		[-\w\d+.]+
+		@
+		[-\w\d.]+
+	''', string, re.X | re.I)
+
+Dictonary and stuff
+	
+		line = re.search(r'''
+			^(?P<name>[-\w ]*,\s[-\w ]+)\t 				# Last and first name
+			(?P<email>[-\w\d.+]+@[-\w\d.]+)\t 			# Email
+			(?P<phone>\(?\d{3}\)?-?\s?\d{3}-\d{4})?\t 	# Phone
+			(?P<job>[\w\s]+,\s[\w\s.]+)\t? 				# Job and company
+			(?P<twitter>@[\w\d]+)?$ 					# Twitter
+		), data, re.X | re.M)
+
+	print(line.groupdict())
+
+	Or another example
+
+		import re
+		string = 'Perotto, Pier Giorgio'
+		names = re.match(r'''^(?P<firstname>[\w]*)
+	                   ,\s
+	                	(?P<lastname>[\w\s\w]*)''',string,re.X|re.M) 
+
+Compiling regex
+
+	... to repeate the same matched multiple times
+	this also includes the finditer operations as well
+	as an example 
+
+	line = re.compile(r'''
+		^(?P<name>[-\w ]*,\s[-\w ]+)\t 				# Last and first name
+		(?P<email>[-\w\d.+]+@[-\w\d.]+)\t 			# Email
+		(?P<phone>\(?\d{3}\)?-?\s?\d{3}-\d{4})?\t 	# Phone
+		(?P<job>[\w\s]+,\s[\w\s.]+)\t? 				# Job and company
+		(?P<twitter>@[\w\d]+)?$ 					# Twitter
+	), data, re.X | re.M)
+
+	for match in line.finditer(data):
+		print('{first} {last} <{email}>').format(**match.groupdict()))
