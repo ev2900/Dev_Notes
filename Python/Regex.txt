@@ -1,7 +1,7 @@
 Regex Notes
 
 re.match 	- must be at the begining
-re.search 	- can be anywhere (will retrun multiple matches ... on one line)
+re.search 	- can be anywhere
 re.findall 	- will find all where they do not over lap
 
 \w 	- any unicode character
