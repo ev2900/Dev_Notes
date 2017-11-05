@@ -1,3 +1,3 @@
 Notes
 --
-A repo with some notes on install and completing the initial configuration of different software stacks.    
+A repository with notes on installation and initial configuration of different software stacks.    
