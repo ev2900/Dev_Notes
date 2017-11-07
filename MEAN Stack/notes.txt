@@ -26,6 +26,8 @@ sudo yum install git
 
 --- Mongo ---
 
+(if on Ubuntu follow https://docs.mongodb.com/v3.2/tutorial/install-mongodb-on-ubuntu/)
+
 	--- Install ---
 	touch /etc/yum.repos.d/mongodb-org-3.2.repo
 	sudo vim /etc/yum.repos.d/mongodb-org-3.2.repo
