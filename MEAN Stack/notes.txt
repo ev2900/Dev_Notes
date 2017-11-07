@@ -15,8 +15,8 @@ yum update
 yum upgrade
 
 --- Install Node ---
-sudo yum install gcc-c++ make
-sudo yum install openssl-devel
+sudo yum install gcc-c++ make       (if on Ubuntu use sudo apt-get install build-essential)
+sudo yum install openssl-devel      (if on Ubuntu use sudo apt-get install build-essential)
 wget 
 tar -xvf 
 ./configure && make && sudo make install
