@@ -43,6 +43,9 @@ sudo yum install git
 
 	--- Start ---
 	sudo service mongod start
+	
+	--- Start automatically on power on/reboot --- 
+	systemctl enable mongod.service
 
 	--- Stop ---
 	sudo service mongod stop
