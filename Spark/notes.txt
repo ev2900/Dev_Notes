@@ -1,0 +1,20 @@
+--- Update ---
+sudo apt-get update
+sudo apt-get upgrade
+
+--- Install Java ---
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+
+--- Install Scala ---
+sudo apt install scala
+
+---- Build and Install Spark ---
+wget <Pre-built for Apache Hadoop>
+tar xvzf
+cd 
+./build/sbt package
+
+--- Add spark /bin to path ---
+export PATH=$PATH:/home/ev2900/spark-2.2.0/bin
