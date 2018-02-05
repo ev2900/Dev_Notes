@@ -1,0 +1,74 @@
+Q: "What happens on the backend when you go to google.com in a browser until the page has been fully rendered?"
+
+A: 
+    ---------------
+    - Web Browser - -------------
+    ---------------             -
+           --                   -
+    ---------------             -
+    - DNS         -             -
+    ---------------             -
+           --                   -
+    ---------------         ---------
+    - IP          -          - HTML - (with references to css/js urls)
+    ---------------          --------  
+        -------                 -
+        - TCP -                 -
+        -------                 -
+    ---------------             -
+    - Hypertext t -             -
+    - ansfer prot -             -
+    - (http)      -             -
+    ---------------             -
+           --                   -
+           --                   -
+           ----------------------
+
+    http://www.google.com/
+    ^          ^            ^
+    scheme    name          path
+
+    DNS
+        Domain name --> IP adress
+
+        1. Browser check local cache for domain name resolution
+        2. Request to resolver server (ISP provided) for domain name resolution
+        3. Checks root server. Top of DNS heierarcy. IF NOT  
+            3.1 Root server will redirect the resolver to a top level domain (tld) server
+            3.2 The TLD server will redirect the resolver to a authoritative name server. ANSWER 
+            3.3 Resolver will store in cache ...  
+
+        Resolver server
+        Top level domain server (TDL)
+        Authoritative name server
+
+        Common DNS records types
+            • A 
+                Adress records (A record). Map names to IPv4 addressed. Used to implement the "address book" functionality of DNS
+            • AAAA
+                IPv6 address records. Map names to IPv6 addresses. Used to extend the "address book" functionality of DNS to support IPv6. Quad-A nomenclature reflects that fact that 128-bit IPv6 addresses are 4 time the length of 32-bit IPv4 addresses
+            • CNAME
+                Canonical name record. Used to implement DNS aliases, where a record maps to another name. Aliases 
+            • MX
+                Mail eXcahnge record. Specifies the name of the mail server responsilble for handling incoming email for a given domain
+            • NS 
+                Name server record. Specifices the authoritative name server(s) for a domain
+            • PTR 
+                Pointer record. Maps IP addresses to fully quanlified domain names. Opposite of A or AAAA records 
+            • SOA
+            • SRV
+            • TXT
+
+    TCP
+          1. synchronize (syn)
+          2. synchronize acknowledge (syn-ack)
+          3. acknowledge
+        
+        Connection Established
+    
+    Hypertext Transfer Protocol
+          1. GET
+          2. POST
+          3. PUT
+          4. DELETE
+
