@@ -72,3 +72,10 @@ A:
           3. PUT
           4. DELETE
 
+    Network class
+                    Ip per Network     Start address    End address         Default Submask     CIDR notation 
+        Class A         16,777,216      0.0.0.0         127.255.255.255     255.0.0.0           /8
+        Class B         65,536          128.0.0.0       191.255.255.255     255.255.0.0         /16
+        Class C         256             192.0.0.0       223.255.255.255     255.255.255.0       /24
+        Class D         -               244.0.0.0       239.255.255.255     -                   -
+        Class E         -               244.0.0.0       255.255.255.255     -                   -
