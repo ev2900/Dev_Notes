@@ -1,0 +1,56 @@
+OLTP - Online transaction processing  
+OLAP - Online analytical processing 
+
+- Database normalization. Organizing the attributes of tables in a realational database to minimize redundancy. 
+
+- Normalization usually involves dividing large tables into smaller (and less redundant) tables, and defining relationships between them. 
+
+Normal Form
+    1st Normal Form (1NF)
+    2nd Normal Form (2NF)
+    3rd Normal Form (3NF)
+
+1st Normal Form
+    - Identify a unique primary key
+    - Have just one set of values per column
+    - Have just one value per cell
+    - Eliminate repeating data
+
+2nd Normal Form
+    - Is in 1st Normal Form
+    - Eliminate partial primary key dependenceis 
+    - Non-key columns must depend on all keys of the componsite primary key
+
+3rd Normal Form
+    - Is in 1st Normal Form
+    - Is in 2nd Normal Form
+    - Eliminate transitive dependencies (columns that depends on another non-primary key column)
+
+        "Every non-key attribute must be depend on the key, the whole key and nothing but the key"
+
+
+A - Atomicity
+C - Consistency
+I - Isolation
+D - Durability 
+
+Atomicity - 
+
+Consistency - 
+
+Isolation -
+
+Durability -
+
+STAR Schema 
+
+    - Fact table
+    - Dimension table 
+
+    Fact table 
+        - numeric data
+        - correspond to event 
+
+    Dimension table 
+        - correspond to people, items or other obejcts
+        - contain details about each instance of an object
